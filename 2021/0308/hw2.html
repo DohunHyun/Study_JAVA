@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-08" />
+    <title>homework</title>
+    <style type="text/css">
+      #target > h1 {
+        display: inline-block;
+        padding: 10px;
+        background-color: yellow;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        margin: 10px;
+      }
+
+      .table {
+        width: 500px;
+        height: 100px;
+        background-color: skyblue;
+        text-align: center;
+      }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var n = 0;
+            var count = 0;
+            var timer = setInterval(function() {
+                n = Math.floor(Math.random() * 45) + 1;
+                $('#target').append('<h1>' + count + '</h1>')
+                count++;
+                if(count>=6) clearInterval(timer);
+            }, 1000) 
+        })
+
+    //   window.onload = function () {
+    //     var n = 0;
+    //     var count = 0;
+
+    //     var timer = setInterval(function () {
+    //       n = Math.floor(Math.random() * 45) + 1;
+    //       document.getElementById("target").innerHTML += "<h1>" + n + "</h1>";
+    //       count++;
+    //       if (count == 6) clearInterval(timer);
+    //     }, 1000);
+    //   };
+    
+    </script>
+  </head>
+  <body>
+    <div>대박을 기원합니다~~~</div>
+    <div class="table">
+      <a id="target"></a>
+    </div>
+  </body>
+</html>

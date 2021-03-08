@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+$(function(){
+    $('h3').hover(function() {
+        $(this).css('background', 'yellow');
+    }, function() {
+        $(this).css('background', 'white');
+    })
+
+    $('h3').filter(':even').click(function(){
+        alert($(this).html());
+        $(this).html("clicked");
+    })
+
+    $('h3').filter(function(index) {
+        return index%3==0;
+    }).click(function(){})
+})
+    
+    </script>
+</head>
+<body>
+    <h3>aaa</h3>
+    <h3>bbb</h3>
+    <h3>ccc</h3>
+    <h3>ddd</h3>
+    <h3>eee</h3>
+    <h3>fff</h3>
+    
+</body>
+</html>
