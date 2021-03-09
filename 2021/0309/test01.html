@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>title</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $('#btnSearch').on('click', function(){
+                    let keyword = $('#keyword').val();
+                    alert(keyword+'검색!');
+
+                    $.ajax({
+                        url: 'http://182.224.88.49:9999/day0309/naver',
+                        data: {'kkk': keyword},
+                        method: 'get',
+                        success: function(data){
+                            // data = JSON.parse(data);
+                            console.log(data);
+                            $('div').html(data);
+                            let make = "<table>";
+                            make += '<tr>';
+                            make+='<td>상품이미지</td>';
+                            make+='<td>상품명</td>';
+                            make+='<td>최저가</td>';
+                            make+='<td>바로가기</td>';                                
+                            make+='</tr>';
+                            $.each(data['items'], function(idx, item) {
+                                make += `<tr>
+                                    <td><img src='${item.image}' width=20px height=30px></td>
+                                    <td>${item.title}</td>
+                                    <td>${item.lprice}</td>
+                                    <td><a href=${item.link} target=_black>[바로가기]</td>
+                                    </tr>`;
+                            })
+                            make+="</table>";
+                            $('div').html(make);
+                        }
+                    })
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <input type="text" id ="keyword">
+        <button id= "btnSearch">검색</button>
+        <div></div>
+    </body>
+</html>
