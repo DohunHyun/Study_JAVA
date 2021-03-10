@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/Javascript">
+        $(function() {
+            // $('#login-form').submit(function() {
+
+            // });
+
+            // $('#login-form').on('submit', function() {
+                
+            // })
+
+            $('#btn-login').click(function() {
+                let tmp = `<form action="backLogin" method="post" id="login-form">
+                ID: <input type="text" name="loginId" id="login-id"><br>
+                PW: <input type="password" name="loginPw" id="login-pw"><br>
+                <input type="submit" value="LOGIN">
+                </form>`;
+
+                $(this).after(tmp);
+                
+                $(document).on('submit', '#login-form', function () {
+                    alert($('#login-id').val() + "//" + $('#login-pw').val());
+                    return false;
+                })
+            })
+            
+            $('#join-pw').keyup(function () {
+                if($(this).val() == '' || $(this).val().length == 0) {
+                    $('#pw-msg').text('패스워드를 입력하세요');
+                    $('#pw-msg').css('color', 'red');
+                } else if($(this).val().length < 4) {
+                    $('#pw-msg').text('안전도 낮음');
+                    $('#pw-msg').css('color', 'red');
+                } else {
+                    $('#pw-msg').text('안전도 높음');
+                    $('#pw-msg').css('color', 'green');
+
+                }
+            })
+
+            $('#join-pw-confirm').keyup(function () {
+                if($(this).val() == $('#join-pw').val()) {
+                    $('#pw-confirm-msg').text('비밀번호 일치 ');
+                    $('#pw-confirm-msg').css('color', 'green');
+                } else {
+                    $('#pw-confirm-msg').text('비밀번호 불일치');
+                    $('#pw-confirm-msg').css('color', 'red');
+                }
+            })
+
+            $('#btn-id-check').click(function(){
+                $.ajax({
+                    url:'userlist.xml',
+                    type:'get',
+                    dataType:'xml',
+                    success: function (result) {
+                        let used = false;
+                        $(result).find('id').each(function(){
+                            // console.log($(this).text());
+                            if($(this).text() == $('#join-id').val()) {
+                                used = true;
+                            }
+                        })
+
+                        if(used) {
+                            alert('이미 사용중입니다.');
+                        } else {
+                            alert('사용 가능합니다.')
+                        }
+                    }
+                })
+            
+                return false;
+            })
+
+
+
+        })
+
+
+
+    </script>
+</head>
+
+<body>
+
+    <a href="#login-form" id="btn-login">[로그인하기]</a>
+
+    <!-- <form action="backLogin" method="post" id="login-form">
+        ID: <input type="text" name="loginId" id="login-id"><br>
+        PW: <input type="password" name="loginPw" id="login-pw"><br>
+        <input type="submit" value="LOGIN">
+    </form> -->
+
+    <form action="backJoin" method="post">
+        ID: <input type="text" name="joinId" id="join-id">
+            <button id="btn-id-check">아이디 중복 체크</button><br>
+        PW: <input type="password" name="joinPw" id="join-pw">
+            <span id="pw-msg">패스워드를 입력하세요.</span><br>
+        PW Confirm: <input type="password" name="joinPw" id="join-pw-confirm">
+            <span id="pw-confirm-msg">패스워드를 입력하세요.</span><br>
+        Name : <input type="text" name="joinName" id="join-name"><br>
+        Phone : <input type="tel" name="phone" id="phone"><br>
+        E-Mail : <input type="email" name="E-Mail" id="E-Mail"><br>
+        <input type="submit" value="JOIN">
+    </form>
+
+
+
+</body>
+
+</html>
