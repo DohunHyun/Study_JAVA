@@ -1,0 +1,17 @@
+[{"YY":"기준년도","MT":"기준월","DE":"기준일","LEGALDONG_NM":"법정동명","LOTNO":"번지","APT_NM":"아파트명","FLOOR_CNT":"층수","DELNG_AMT":"거래금액(만원)","PRVTUSE_AR":"전용면적(㎡)"},
+    
+    
+    
+{"YY":"2020","MT":"1","DE":"01","LEGALDONG_NM":"광명동","LOTNO":"781","APT_NM":"월드메르디앙","FLOOR_CNT":"5","DELNG_AMT":"55000","PRVTUSE_AR":"84.83"},
+{"YY":"2020","MT":"1","DE":"02","LEGALDONG_NM":"하안동","LOTNO":"295","APT_NM":"주공7","FLOOR_CNT":"5","DELNG_AMT":"30700","PRVTUSE_AR":"45.77"},
+{"YY":"2020","MT":"1","DE":"02","LEGALDONG_NM":"철산동","LOTNO":"629","APT_NM":"두산위브","FLOOR_CNT":"4","DELNG_AMT":"47800","PRVTUSE_AR":"59.81"},
+{"YY":"2020","MT":"1","DE":"03","LEGALDONG_NM":"소하동","LOTNO":"1289","APT_NM":"광명소하휴먼시아3단지","FLOOR_CNT":"4","DELNG_AMT":"64000","PRVTUSE_AR":"84.95"},
+{"YY":"2020","MT":"1","DE":"03","LEGALDONG_NM":"하안동","LOTNO":"682","APT_NM":"주공1","FLOOR_CNT":"8","DELNG_AMT":"28000","PRVTUSE_AR":"41.3"},
+{"YY":"2020","MT":"1","DE":"03","LEGALDONG_NM":"하안동","LOTNO":"702","APT_NM":"주공5","FLOOR_CNT":"3","DELNG_AMT":"32500","PRVTUSE_AR":"59.39"},
+{"YY":"2020","MT":"1","DE":"03","LEGALDONG_NM":"하안동","LOTNO":"296","APT_NM":"주공6","FLOOR_CNT":"10","DELNG_AMT":"33400","PRVTUSE_AR":"41.3"},
+{"YY":"2020","MT":"1","DE":"03","LEGALDONG_NM":"철산동","LOTNO":"367","APT_NM":"철산한신","FLOOR_CNT":"7","DELNG_AMT":"63500","PRVTUSE_AR":"89.455"},
+{"YY":"2020","MT":"1","DE":"03","LEGALDONG_NM":"철산동","LOTNO":"367","APT_NM":"철산한신","FLOOR_CNT":"11","DELNG_AMT":"61500","PRVTUSE_AR":"89.455"},
+{"YY":"2020","MT":"1","DE":"04","LEGALDONG_NM":"하안동","LOTNO":"702","APT_NM":"주공5","FLOOR_CNT":"7","DELNG_AMT":"34000","PRVTUSE_AR":"58.01"},
+{"YY":"2020","MT":"1","DE":"04","LEGALDONG_NM":"철산동","LOTNO":"449","APT_NM":"주공12","FLOOR_CNT":"5","DELNG_AMT":"61400","PRVTUSE_AR":"53.46"},
+{"YY":"2020","MT":"1","DE":"04","LEGALDONG_NM":"철산동","LOTNO":"625","APT_NM":"도덕파크타운2단지","FLOOR_CNT":"17","DELNG_AMT":"31200","PRVTUSE_AR":"39.65"},
+{"YY":"2020","MT":"1","DE":"04","LEGALDONG_NM":"광명동","LOTNO":"785","APT_NM":"광명해모로이연","FLOOR_CNT":"17","DELNG_AMT":"65300","PRVTUSE_AR":"84.986"}]

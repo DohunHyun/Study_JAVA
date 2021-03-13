@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>HAPPY HOUSE</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        #map {
+            height: 100%;
+        }
+
+        .invisible {
+            display: none;
+        }
+
+        .visible {
+            display: '';
+        }
+    </style>
+    <script defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxYZb-KZJZA7ehSj9UbM0vlpMRNtKxSko&callback=initMap&libraries=&v=weekly"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        let map;
+
+        $(function () {
+            $('#dongSelect').change(function () {
+                $('#aptList').children().removeClass('visible');
+                $('#aptList').children().addClass('invisible');
+                // $(this).removeClass('invisible');
+                // $(this).addClass('visible');
+                // $('#aptList').find(this).removeClass('invisible');
+                // $('#aptList').children(find(this.value)).addClass('visible');
+                
+                $('#aptList').children('[id=' + this.value + ']').removeClass('invisible');
+                $('#aptList').children('[id=' + this.value + ']').addClass('visible');
+                console.log($('#aptList').find('[id=' + this.value + ']'));
+            
+            });
+
+        })
+
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: {
+                    lat: 37.4693991197085,
+                    lng: 126.8656255197085
+                },
+                zoom: 13
+            });
+            var marker = new google.maps.Marker({
+                position: { lat: 37.5012743, lng: 127.039585 },
+                map: map
+            });
+
+
+
+            $.getJSON('아파트매매실거래자료현황.json', function (data) {
+                $.each(data, function (index, item) {
+                    var urlFront = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+                    var urlBack = '&key=AIzaSyBxYZb-KZJZA7ehSj9UbM0vlpMRNtKxSko';
+                    var urlMid = '경기도+광명시+' + item.LEGALDONG_NM + '+' + item.LOTNO;
+                    var url = urlFront + urlMid + urlBack;
+
+                    // console.log(url);
+
+                    $.getJSON(url, function (data) {
+                        // console.log(data.results[0].geometry.location);
+                        $.each(data, function (index, item) {
+                            // console.log(JSON.stringify(item));
+                            // console.log(item[0].geometry.location.lat);
+
+                            // console.log('lat : ' + item.geometry.location.lat);
+                            var marker = new google.maps.Marker({
+                                position: {
+                                    lat: item[0].geometry.location.lat,
+                                    lng: item[0].geometry.location.lng
+                                },
+                                map: map
+                            })
+                        })
+
+                        var marker = new google.maps.Marker({
+                            position: { lat: 37.5011233, lng: 127.032385 },
+                            map: map
+                        });
+                    })
+                })
+
+                $.ajax({
+                    url: '아파트매매실거래자료현황.json',
+                    type: 'GET',
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        $.each(data, function (index, item) {
+                            if ($('#dongSelect').find(item.LEGALDONG_NM)) {
+                            } else {
+                                $('#dongSelcet').append(item.LEGALDONG_NM)
+                            }
+                        })
+                    },
+                    error: function (xhr, status, msg) {
+                        console.log('상태값 : ' + status + ' Http에러메시지 : ' + msg);
+                    }
+                })
+
+                $('marker')
+                // https://maps.googleapis.com/maps/api/geocode/json?address=서울+강남구+역삼동+테헤란로+212&key=AIzaSyBxYZb-KZJZA7ehSj9UbM0vlpMRNtKxSko
+            })
+
+            // https://maps.googleapis.com/maps/api/geocode/json?address=서울+강남구+역삼동+테헤란로+212&key=AIzaSyBxYZb-KZJZA7ehSj9UbM0vlpMRNtKxSko
+        }
+    </script>
+</head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+
+                <!-- Header -->
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>HAPPY</strong> HOUSE</a>
+                    <ul class="icons">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login_modal">
+                            login
+                        </button>
+                        <!-- <li><a href="#" class="icon brands fa-sign-in-alt"><span class="label">Login</span></a></li>
+										<li><a href="#" class="icon brands fa-sign-out-alt"><span class="label">Logout</span></a></li>
+										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li> -->
+                    </ul>
+                </header>
+
+                <!-- Banner -->
+                <section id="banner">
+                    <div class="content">
+                        <header>
+                            <h1>동으로 검색하기<br />
+                                HAPPY HOUSE</h1>
+                            <p>광명시의 아파트 매물을 동네별로 조회해보세요.</p>
+                        </header>
+                        <select id="dongSelect">
+                            <option selected>원하시는 동을 골라주세요.</option>
+                            <option value="GMdong">광명동</option>
+                            <option value="HAdong">하안동</option>
+                        </select>
+                        <div id="aptList">
+                            <ul id="GMdong" class="invisible">
+                                <li>
+                                    <p> 광명동 | 월드메르디앙 | 5층 | 5억 5천만원 | 84.83㎡</p>
+                                </li>
+                                <li>
+                                    <p> 광명동 | 광명해모로이연 | 17층 | 6억 5천 3백만원 | 84.986㎡</p>
+                                </li>
+                            </ul>
+                            <ul id="HAdong" class="invisible">
+                                <li>
+                                    <p> 하안동 | 주공7 | 5층 | 3억 7백만원 | 45.77㎡</p>
+                                </li>
+                                <li>
+                                    <p> 하안동 | 주공1 | 8층 | 2억 8천만원 | 41.3㎡</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <p></p>
+
+                        <ul class="actions">
+                            <li><a href="#" class="button big">Learn More</a></li>
+                        </ul>
+                    </div>
+                    <span class="image object">
+                        <div id="map"></div>
+                    </span>
+                    <!-- <span class="image object">
+										<img src="images/pic10.jpg" alt="" />
+									</span> -->
+                </section>
+
+                <!-- Section -->
+                <!-- <section>
+                    <header class="major">
+                        <h2>Erat lacinia</h2>
+                    </header>
+                    <div class="features">
+                        <article>
+                            <span class="icon fa-gem"></span>
+                            <div class="content">
+                                <h3>Portitor ullamcorper</h3>
+                                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                    facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            </div>
+                        </article>
+                        <article>
+                            <span class="icon solid fa-paper-plane"></span>
+                            <div class="content">
+                                <h3>Sapien veroeros</h3>
+                                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                    facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            </div>
+                        </article>
+                        <article>
+                            <span class="icon solid fa-rocket"></span>
+                            <div class="content">
+                                <h3>Quam lorem ipsum</h3>
+                                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                    facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            </div>
+                        </article>
+                        <article>
+                            <span class="icon solid fa-signal"></span>
+                            <div class="content">
+                                <h3>Sed magna finibus</h3>
+                                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                    facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            </div>
+                        </article>
+                    </div>
+                </section> -->
+
+                <!-- Section -->
+                <!-- <section>
+                    <header class="major">
+                        <h2>Ipsum sed dolor</h2>
+                    </header>
+                    <div class="posts">
+                        <article>
+                            <a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
+                            <h3>Interdum aenean</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+                            <h3>Nulla amet dolore</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+                            <h3>Tempus ullamcorper</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
+                            <h3>Sed etiam facilis</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic05.jpg" alt="" /></a>
+                            <h3>Feugiat lorem aenean</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic06.jpg" alt="" /></a>
+                            <h3>Amet varius aliquam</h3>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam
+                                facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </article>
+                    </div>
+                </section> -->
+
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="inner">
+
+                <!-- Search -->
+                <section id="search" class="alt">
+                    <form method="post" action="#">
+                        <input type="text" name="query" id="query" placeholder="Search" />
+                    </form>
+                </section>
+
+                <!-- Menu -->
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Menu</h2>
+                    </header>
+                    <ul>
+                        <li><a href="index.html">메인 페이지</a></li>
+                        <li>
+                            <span class="opener">매매 정보</span>
+                            <ul>
+                                <li><a href="search_dong.html">동별 검색</a></li>
+                                <li><a href="search_apart.html">아파트별 검색</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">회원 정보 확인</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Section -->
+                <!-- <section>
+                    <header class="major">
+                        <h2>Ante interdum</h2>
+                    </header>
+                    <div class="mini-posts">
+                        <article>
+                            <a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+                            <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+                        </article>
+                    </div>
+                    <ul class="actions">
+                        <li><a href="#" class="button">More</a></li>
+                    </ul>
+                </section> -->
+
+                <!-- Section -->
+                <!-- <section>
+                    <header class="major">
+                        <h2>Get in touch</h2>
+                    </header>
+                    <p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem
+                        ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat
+                        tempus aliquam.</p>
+                    <ul class="contact">
+                        <li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
+                        <li class="icon solid fa-phone">(000) 000-0000</li>
+                        <li class="icon solid fa-home">1234 Somewhere Road #8254<br />
+                            Nashville, TN 00000-0000</li>
+                    </ul>
+                </section> -->
+
+                <!-- Footer -->
+                <footer id="footer">
+                    <p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a
+                            href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5
+                            UP</a>.</p>
+                </footer>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
