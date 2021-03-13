@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button id="btn1">속성확인</button>
+        <button id="btn2">속성추가</button>
+    </div>
+    <div id="div1" data-cnt="10">테스트용</div>
+    <div id="div2"></div>
+    <script>
+        // btn1 버튼 클릭 시 div1의 data-cnt속성과 data-name 속성의 값을 div2에 출력한다.
+        // btn2 버튼 클릭 시 div1에 data-name 속성에 "추가됨"으로 값을 설정
+        // Vanila Javascript 를 이용(사용자가 정의한 속성은 getAttribute와 setAttribute를 이용 해야함)
+        window.onload = function() {
+            document.getElementById('btn1').addEventListener('click', function() {
+                var div1 = document.getElementById('div1');
+                document.getElementById('div2').innerText 
+                = 'cnt : ' + div1.dataset.cnt +', name : '+ div1.dataset.name;
+            })
+            document.getElementById('btn2').addEventListener('click', function() {
+                document.getElementById('div1').dataset.name = '추가됨';
+            })
+        }
+    </script>
+</body>
+
+</html>
