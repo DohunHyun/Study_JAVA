@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #map {
+            height: 50%;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+
+            /* ddd */
+        }
+    </style>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxYZb-KZJZA7ehSj9UbM0vlpMRNtKxSko&callback=initMap&libraries=&v=weekly"></script>
+    <script>
+        let map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: {
+                    lat: 37.5013068,
+                    lng: 127.037471
+                },
+                zoom: 17
+            });
+            var marker = new google.maps.Marker({
+                position: {lat: 37.5012743, lng: 127.039585},
+                map: map
+            });
+
+            // https://maps.googleapis.com/maps/api/geocode/json?address=서울+강남구+역삼동+테헤란로+212&key=AIzaSyBxYZb-KZJZA7ehSj9UbM0vlpMRNtKxSko
+        }
+    </script>
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>
