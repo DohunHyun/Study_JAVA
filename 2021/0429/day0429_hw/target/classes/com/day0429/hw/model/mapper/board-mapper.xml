@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.day0429.hw.model.mapper.BoardMapper">
+
+	<insert id="insert" parameterType="com.day0429.hw.model.BoardDto">
+	insert into board_tb(btitle, bwriter, bcontent) values(#{btitle},#{bwriter},#{bcontent})
+	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="com.day0429.hw.model.BoardDto">
+	select bnum, btitle, bcontent, bwriter, bregdate
+	from board_tb
+	where bnum = #{bnum}
+	</select>
+	
+	<select id="selectList" resultType="com.day0429.hw.model.BoardDto">
+	select bnum, btitle, bcontent, bwriter, bregdate
+	from board_tb
+	order by bnum desc
+	limit #{startRow}, #{count}
+	</select>
+	
+	<select id="selectCount" resultType="int">
+	select count(*)
+	from board_tb
+	</select>
+	
+</mapper>
