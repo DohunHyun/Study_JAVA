@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+	<bean id="boy" class="test04.Boy"/>
+	<bean id="girl" class="test04.Girl"/>
+	
+	<bean id="myAspect" class="test04.MyAspect"/>
+	
+	<aop:config>
+		<aop:aspect ref="myAspect">
+			<aop:pointcut 
+			expression="execution(String makeFood(int, int))" 
+			id="myPoint"/>
+			<aop:before method="beforeFood" pointcut-ref="myPoint"/>
+			<aop:after-returning method="completeFood" 
+						pointcut-ref="myPoint" returning="result"/>
+			<aop:after-throwing method="foodFire" pointcut-ref="myPoint"/>
+			<aop:after method="allFinish" pointcut-ref="myPoint"/>						
+		</aop:aspect>
+	</aop:config>
+	
+</beans>
