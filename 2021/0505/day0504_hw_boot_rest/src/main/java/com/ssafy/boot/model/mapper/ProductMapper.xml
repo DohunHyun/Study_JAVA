@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.boot.model.mapper.ProductMapper">
+
+	<insert id="insert" parameterType="com.ssafy.boot.model.ProductDto">
+	insert into product_tb(serialnum, title, price, description) values(#{serialnum}, #{title}, #{price}, #{description})
+	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="com.ssafy.boot.model.ProductDto">
+	select serialnum, title, price, description
+	from product_tb 
+	where serialnum=#{serialnum}
+	</select>
+	
+	<select id="selectList" resultType="com.ssafy.boot.model.ProductDto">
+	select serialnum, title, price, description
+	from product_tb 
+	order by serialnum desc limit #{startRow},#{count}
+	</select>
+	
+	<select id="selectCount" resultType="int">
+	select count(*)
+	from product_tb 
+	</select>
+
+</mapper>

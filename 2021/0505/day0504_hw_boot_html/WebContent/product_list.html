@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>product list </title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#list-btn').click(function(){
+			$.ajax({
+				url:'http://127.0.0.1:9999/bootproduct/productMain',
+				dataType:'json',
+				success:function(data){
+					// data로 받아온거에 pList랑 하단 페이지 관련 startPage, curPage, endPage 같은게 다 들어있음.
+					alert('rest 서버한테 받아온 데이터:'+JSON.stringify(data)); 
+					// pList에 있는 게시글들을 테이블로 보여주고
+					let addData = "";
+						addData += "<tr>";
+						addData += "<th>시리얼넘버</th>";
+						addData += "<th>이름</th>";
+						addData += "<th>가격</th>";
+						addData += "<th>설명</th>";
+						addData += "</tr>";
+					
+					$.each(data['pList'], function(idx, bbb){ // 여기서 이어붙이기 싫으면 `` 백틱 쓰는거임.
+						addData += "<tr>";
+						addData += "<td>"+bbb['serialnum']+"</td>";
+						addData += "<td>"+bbb['title']+"</td>";
+						addData += "<td>"+bbb['price']+"</td>";
+						addData += "<td>"+bbb['description']+"</td>";
+						addData += "</tr>";
+					})
+					
+					// 하단 페이지 정보는 일단 이런식으로 data['이름'] 해서 쓰면됨.
+					let pageInfo = "";
+					pageInfo += "하단 시작 페이지:"+data['startPage']+"<br>";
+					pageInfo += "하단 끝 페이지:"+data['endPage']+"<br>";
+					pageInfo += "총 페이지수 :"+data['totalPage']+"<br>";
+					
+					$('#product-tb').html(addData);
+					$('#product-tb').after(pageInfo);
+				},
+				error:function(){
+					alert('error');
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<table border="1" id="product-tb">
+	</table>
+	<button id="list-btn">누르면 상품 가져옴.</button>
+		<a href="product_add.html">상품 추가하기 </a>
+	
+</body>
+</html>

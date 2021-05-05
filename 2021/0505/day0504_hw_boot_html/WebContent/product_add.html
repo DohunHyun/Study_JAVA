@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>product add </title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#add-btn').click(function(){
+			$.ajax({
+				url:'http://127.0.0.1:8080/rest/product',
+				method:'post',
+				data:JSON.stringify({
+					"serialnum":$('#serialnum').val(),
+					"title":$('#title').val(),
+					"price":$('#price').val(),
+					"description":$('#description').val(),
+				}),
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader("Accept", "application/json");
+					xhr.setRequestHeader("Content-Type", "application/json");
+				}, 
+				dataType:'text',
+				success:function(result){
+					alert('상품 추가 완료');
+					location.href="product_list.html";
+				},
+				error:function(err){
+					alert('error');
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<table border="1" id="product-tb">
+	</table>
+	
+	시리얼 넘버 : <input type="text" id="serialnum" name="serialnum">
+	상품명 : <input type="text" id="title" name="title">
+	가격 : <input type="number" id="price" name="price">
+	설명 : <input type="text" id="description" name="description">
+	
+	<button id="add-btn">상품 등록하기. </button>
+	<a href="product_list.html">상품 리스트보기 </a>
+</body>
+</html>

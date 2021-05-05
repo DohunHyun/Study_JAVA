@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.boot.model.mapper.CommentMapper">
+
+	<select id="cmtList" parameterType="int" resultType="com.ssafy.boot.dto.CommentDto">
+	select * from comment_tb where bnum=#{bnum}
+	</select>
+	
+	<insert id="insert" parameterType="com.ssafy.boot.dto.CommentDto">
+	insert into comment_tb(bnum, cwriter, ccontent)
+	values(#{bnum}, #{cwriter}, #{ccontent})
+	</insert>
+	
+</mapper>
