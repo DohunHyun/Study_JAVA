@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="now">
+        <button @click="calc">계산</button>
+
+        <ul>
+            <li v-for="iii in results">
+                {{iii.formula}} ====> {{iii.result}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el:'#app',
+            data() {
+                return {
+                    now:'', // 현재 입력된 한줄의 수식
+                    results:[], // 계산할때마다 {수식:'2+3', 결과:'5'} 이런 객체를 만들어서 push
+                }
+            },
+            methods: {
+                calc() {
+                    let temp = {formula:this.now, result:eval(this.now)};
+                    this.results.push(temp);
+                    this.now='';
+                }
+            }
+        })
+    </script>
+</body>
+</html>
