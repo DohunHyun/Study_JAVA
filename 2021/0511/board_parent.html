@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .parent{
+            background-color: yellow;
+        }
+        .child-comp{
+            width: 300px;
+            background-color: greenyellow;
+            height: auto;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="parent">
+        <h1>나는 부모 컴포넌트다! 자식 컴포넌트 게시판을 아래에 포함할거다!!</h1>
+        <hdh-list class="child-comp c1"></hdh-list>
+        <h1> 대전 5반의 게시판 </h1>
+        <table border="1">
+            <tr>
+                <th>글번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>내용</th>
+            </tr>
+            <tr v-for="bbb in mydata.bList">
+                <td v-text="bbb.bnum"></td>
+                <td>{{bbb.btitle}}</td>
+                <td v-text="bbb.bwriter"></td>
+                <td v-text="bbb.bcontent"></td>
+            </tr>
+        </table>
+    </div>
+
+    <script type="module">
+        import hdhList from './ChildList.js'
+        const bus = new Vue();
+        Vue.component('Read', {
+            el:'#app',
+            components:{hdhList},
+            method: {
+                updateBoard(data) {
+                    
+                }
+            },
+            created: function() {
+                bus.$on('readBoard', this.updateBoard)
+            }
+        })
+
+    </script>
+    
+</body>
+</html>

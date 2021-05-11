@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>과제! 함 해보자!!</h1>
+        <board-list :bus="bus"></board-list>
+        <board-read :bus="bus"></board-read>
+    </div>
+
+    <script type="module">
+        import BoardList from './BoardList.js';
+        import BoardRead from './BoardRead.js';
+
+        const bus = new Vue();
+
+        new Vue({
+            el:"#app",
+            components:{BoardList, BoardRead},
+            data:{bus:bus},
+        })
+    </script>
+    
+</body>
+</html>
