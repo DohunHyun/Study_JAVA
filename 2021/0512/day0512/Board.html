@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>게시글 리스트!!</h1>
+        <board-list :bus="bus"></board-list>
+        <h2>글쓰기</h2>
+        <board-write :bus="bus"></board-write>
+        <h1>게시글 상세보기!</h1>
+        <board-read :bus="bus"></board-read>
+        <h2>댓글?!</h2>
+        <comment-list :bus="bus"></comment-list>
+        <h3>댓글작성</h3>
+        <comment-write :bus="bus"></comment-write>
+    </div>
+
+    <script type="module">
+        import BoardList from './BoardList.js';
+        import BoardRead from './BoardRead.js';
+        import CommentList from './CommentList.js';
+        import BoardWrite from './BoardWrite.js';
+        import CommentWrite from './CommentWrite.js';
+        const bus = new Vue();
+
+        new Vue({
+            el:"#app",
+            components: {
+                BoardList, BoardRead, CommentList, BoardWrite, CommentWrite
+            },
+            data: {
+                bus: bus,
+            },
+        })
+
+    </script>
+</body>
+</html>
